@@ -12,6 +12,10 @@ class BookController < ApplicationController
     @subjects = Subject.all
   end
 
+  def book_params
+    params.require(:books).permit(:title, :price, :subject_id, :description)
+  end
+
   def create
     @book = Book.new(book_params)
 
@@ -23,13 +27,13 @@ class BookController < ApplicationController
     end
   end
 
-  def book_params
-    params.require(:books).permit(:title, :price, :subject_id, :description)
-  end
-
   def edit
     @book = Book.find(params[:id])
     @subjects = Subject.all
+  end
+
+  def book_param
+    params.require(:book).permit(:title, :price, :subject_id, :description)
   end
 
   def update
@@ -43,10 +47,6 @@ class BookController < ApplicationController
     end
   end
 
-  def book_params
-    params.require(:book).permit(:title, :price, :subject_id, :description)
-  end
-
   def delete
     Book.find(params[:id]).destroy
     redirect_to :action => 'list'
@@ -55,5 +55,4 @@ class BookController < ApplicationController
   def show_subjects
     @subject = Subject.find(params[:id])
   end
-
 end
