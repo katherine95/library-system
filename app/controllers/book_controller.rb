@@ -1,4 +1,5 @@
 class BookController < ApplicationController
+  layout 'index'
   def list
     @books = Book.all
   end
